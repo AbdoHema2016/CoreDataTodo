@@ -5,4 +5,6 @@ target 'CoreDataTodo' do
 
   # Pods for CoreDataTodo
 	pod 'RealmSwift'
+	pod 'SwipeCellKit', "2.5.4"
+
 end

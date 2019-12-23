@@ -8,8 +8,8 @@
 
 import UIKit
 import RealmSwift
-
-class CategoryViewController: UITableViewController {
+import SwipeCellKit
+class CategoryViewController: SwipeTableViewController {
 
     let realm = try! Realm()
     
@@ -51,8 +51,8 @@ class CategoryViewController: UITableViewController {
         return categoryArray?.count ?? 1
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        cell.textLabel?.text = categoryArray?[indexPath.row].name ?? "No categories added yet"
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+          cell.textLabel?.text = categoryArray?[indexPath.row].name ?? "No categories added yet"
         
         return cell
     }
@@ -70,26 +70,42 @@ class CategoryViewController: UITableViewController {
     }
     
     //MARK: - Model Manipulation Methods
-    func save(category: Category){
-        do {
+    
+    func save(category: Category) {
+        do{
             try realm.write {
                 realm.add(category)
             }
         } catch {
-            print("error saving context\(error)")
+            print("Error: \(error)")
         }
-        self.tableView.reloadData()
+        
+        tableView.reloadData()
+        
     }
     
-    func loadCategories(){
-
-         categoryArray = realm.objects(Category.self)
+    func loadCategories() {
+        
+        categoryArray = realm.objects(Category.self)
+        
         tableView.reloadData()
-//        do {
-//            categoryArray = try context.fetch(request)
-//        } catch {
-//            print("Error Fetch data from context \(error)")
-//        }
+        
+    }
+    
+    //MARK: - Delete Data From Swipe
+    
+    override func updateModel(at indexPath: IndexPath) {
+        
+        if let categoryForDeletion = self.categoryArray?[indexPath.row] {
+            do{
+                try self.realm.write{
+                    self.realm.delete(categoryForDeletion)
+                }
+            } catch {
+                print("Error: \(error)")
+            }
+            
+        }
     }
 
     

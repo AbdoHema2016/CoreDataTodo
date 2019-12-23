@@ -6,5 +6,6 @@ target 'CoreDataTodo' do
   # Pods for CoreDataTodo
 	pod 'RealmSwift'
 	pod 'SwipeCellKit', "2.5.4"
+  pod 'ChameleonFramework/Swift', :git => 'https://github.com/viccalexander/Chameleon.git'
 
 end

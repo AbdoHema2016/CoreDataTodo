@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-import SwipeCellKit
+import ChameleonFramework
 class CategoryViewController: SwipeTableViewController {
 
     let realm = try! Realm()
@@ -26,6 +26,7 @@ class CategoryViewController: SwipeTableViewController {
             
             let newCategory = Category()
             newCategory.name = textField.text!
+            newCategory.colour = UIColor.randomFlat.hexValue()
             self.save(category: newCategory)
         }
         alert.addTextField { (alertTextField) in
@@ -39,11 +40,9 @@ class CategoryViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        
+        tableView.separatorStyle = .none
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     //MARK: - TableView Datasource Methods
@@ -52,7 +51,12 @@ class CategoryViewController: SwipeTableViewController {
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-          cell.textLabel?.text = categoryArray?[indexPath.row].name ?? "No categories added yet"
+        if let categories =  categoryArray?[indexPath.row] {
+            cell.textLabel?.text = categoryArray?[indexPath.row].name ?? "No categories added yet"
+            guard let categoryColour = UIColor(hexString: categories.colour) else {fatalError()}
+            cell.backgroundColor = categoryColour
+            cell.textLabel?.textColor = ContrastColorOf(categoryColour, returnFlat: true)
+        }
         
         return cell
     }

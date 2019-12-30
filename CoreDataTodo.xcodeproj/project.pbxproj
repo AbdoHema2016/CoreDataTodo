@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		105FE5FDBB251E91F8BCF809 /* Pods_CoreDataTodo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE4524EB74BB33BE6666FD9 /* Pods_CoreDataTodo.framework */; };
 		944C4DF823B0AEF90024467A /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 944C4DF723B0AEF90024467A /* SwipeTableViewController.swift */; };
+		946268B123BA07D000804186 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 946268B023BA07CF00804186 /* GoogleService-Info.plist */; };
 		94BDF7F723AB8FE800F10EDC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94BDF7F623AB8FE800F10EDC /* CategoryViewController.swift */; };
 		94DB62A523AF90A100710A50 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DB62A423AF90A100710A50 /* Item.swift */; };
 		94DB62A723AF90AD00710A50 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DB62A623AF90AD00710A50 /* Category.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		7BE4524EB74BB33BE6666FD9 /* Pods_CoreDataTodo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreDataTodo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		944C4DF723B0AEF90024467A /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
+		946268B023BA07CF00804186 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		94BDF7F623AB8FE800F10EDC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		94DB62A423AF90A100710A50 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		94DB62A623AF90AD00710A50 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			children = (
 				947FCE1523AA2F9100671D8E /* Support */,
 				94FD187923A7A75D00E516E8 /* Info.plist */,
+				946268B023BA07CF00804186 /* GoogleService-Info.plist */,
 				947FCE0E23AA2E5700671D8E /* Controllers */,
 				947FCE1023AA2E7000671D8E /* Views */,
 				947FCE0F23AA2E6500671D8E /* Data Model */,
@@ -201,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94FD187823A7A75D00E516E8 /* LaunchScreen.storyboard in Resources */,
+				946268B123BA07D000804186 /* GoogleService-Info.plist in Resources */,
 				94FD187523A7A75D00E516E8 /* Assets.xcassets in Resources */,
 				94FD187323A7A75B00E516E8 /* Main.storyboard in Resources */,
 			);

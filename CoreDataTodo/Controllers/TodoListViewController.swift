@@ -41,7 +41,6 @@ class TodoListViewController: SwipeTableViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        guard let colourHex = selectedCategory?.colour else { fatalError("something went wrong")}
         
        updateNavBar(withHexCode: "1D9BF6")
     }

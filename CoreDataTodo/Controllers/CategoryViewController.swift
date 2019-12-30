@@ -9,11 +9,14 @@
 import UIKit
 import RealmSwift
 import ChameleonFramework
+import FirebaseDatabase
+
+
 class CategoryViewController: SwipeTableViewController {
 
-    let realm = try! Realm()
-    
     //MARK: - Variables
+    let realm = try! Realm()
+    var ref: DatabaseReference!
     var categoryArray : Results<Category>?
 
     
@@ -27,6 +30,9 @@ class CategoryViewController: SwipeTableViewController {
             let newCategory = Category()
             newCategory.name = textField.text!
             newCategory.colour = UIColor.randomFlat.hexValue()
+            
+            self.ref.child("Categories").childByAutoId().setValue(["name": newCategory.name,"colour": newCategory.colour])
+            
             self.save(category: newCategory)
         }
         alert.addTextField { (alertTextField) in
@@ -39,7 +45,9 @@ class CategoryViewController: SwipeTableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
         loadCategories()
+        
         
         tableView.separatorStyle = .none
 
@@ -53,9 +61,9 @@ class CategoryViewController: SwipeTableViewController {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         if let categories =  categoryArray?[indexPath.row] {
             cell.textLabel?.text = categoryArray?[indexPath.row].name ?? "No categories added yet"
-            guard let categoryColour = UIColor(hexString: categories.colour) else {fatalError()}
-            cell.backgroundColor = categoryColour
-            cell.textLabel?.textColor = ContrastColorOf(categoryColour, returnFlat: true)
+           guard let categoryColour = UIColor(hexString: categories.colour) else {fatalError()}
+           cell.backgroundColor = categoryColour
+           cell.textLabel?.textColor = ContrastColorOf(categoryColour, returnFlat: true)
         }
         
         return cell
@@ -91,8 +99,40 @@ class CategoryViewController: SwipeTableViewController {
     func loadCategories() {
         
         categoryArray = realm.objects(Category.self)
-        
         tableView.reloadData()
+        ref.child("Categories").observeSingleEvent(of: .value, with: { (snapshot) in
+           // Get user value
+            
+            for snap in snapshot.children {
+                let userSnap = snap as! DataSnapshot
+                let userDict = userSnap.value as! [String:AnyObject]
+                let username = userDict["name"] as? String ?? ""
+                let color = userDict["colour"] as? String ?? ""
+                
+                
+                 let category = self.categoryArray?.filter("name CONTAINS[cd] %@",username).sorted(byKeyPath: "name")
+                if username == category?.first?.name {
+                     print("already saved")
+                } else {
+                    let newCategory = Category()
+                    newCategory.name = username
+                    newCategory.colour = color
+                    self.save(category: newCategory)
+                }
+                
+            }
+            self.tableView.reloadData()
+          
+        
+           
+            
+           // ...
+       }) { (error) in
+           print(error.localizedDescription)
+       }
+       
+        
+        
         
     }
     
